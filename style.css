@@ -1,0 +1,583 @@
+/* =======================
+COLOR PALETTE
+--gold: #a77a3f;
+--dark-grey: #333;
+--light-grey: #f8f8f8;
+======================= */
+
+/* =======================
+RESET & BASE STYLES (UPDATED)
+======================= */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: "Poppins", sans-serif;
+color: var(--dark-grey); /* Using CSS variable style */
+background: #fff;
+line-height: 1.6;
+}
+
+a {
+text-decoration: none;
+color: inherit;
+}
+
+h1, h2, h3 {
+font-weight: 700;
+color: var(--dark-grey);
+}
+
+.container {
+width: 90%;
+max-width: 1200px;
+margin: auto;
+}
+
+/* =======================
+HEADER (UPDATED)
+======================= */
+.site-header {
+margin-bottom: 0;
+border-bottom: 1px solid #eee; /* Clean separation */
+}
+
+/* Main navigation */
+.main-nav {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: #fff;
+padding: 10px 0;
+}
+
+/* 🏆 FIX 1: Ensure navigation links/icons (like the cart) are clearly visible black/dark-grey */
+.main-nav a {
+  color: var(--dark-grey); 
+  transition: color 0.3s;
+}
+.main-nav a:hover {
+  color: var(--gold); /* Add a hover effect for user feedback */
+}
+
+/* Logo Container */
+.logo-container {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+/* Circular Logo Placeholder with Image */
+.logo-circle {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+overflow: hidden;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.logo-circle img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+
+/* Logo Text next to the circle */
+.logo-text {
+font-family: 'Georgia', serif;
+font-weight: 700;
+font-size: 1.6rem;
+color: #000000; /* Gold accent */
+letter-spacing: 1px;
+}
+
+/* =======================
+HERO SECTION
+======================= */
+.hero-banner {
+position: relative;
+text-align: center;
+color: white;
+}
+
+.hero-banner img {
+width: 100%;
+height: 400px;
+object-fit: cover;
+display: block;
+}
+
+.hero-text {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: rgba(0, 0, 0, 0.4); /* Subtle overlay for text readability */
+padding: 15px 30px;
+border-radius: 5px;
+text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text h1 {
+font-size: 2.5rem;
+letter-spacing: 1px;
+font-weight: 700;
+color: #fff;
+}
+
+.hero-text p {
+margin: 5px 0 0;
+font-size: 1.1rem;
+color: #f0f0f0;
+}
+
+/* =======================
+BUTTONS (UPDATED)
+======================= */
+.btn {
+background: var(--gold); /* Gold */
+color: var(--dark-grey); /* Ensure button text is dark-grey */
+padding: 12px 30px;
+border-radius: 5px;
+/* *** CHANGE 1: ADD BORDER TO BUTTONS (INCLUDING ADD TO CART) *** */
+border: 2px solid var(--dark-grey); 
+cursor: pointer;
+font-weight: 600;
+font-size: 1rem;
+transition: 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+.btn:hover {
+background: #8b632f; /* Darker Gold */
+transform: translateY(-1px);
+}
+
+.back-btn {
+background: #555;
+}
+.back-btn:hover {
+background: #333;
+}
+
+/* =======================
+CATEGORY GRID (2x2 Layout on Desktop)
+======================= */
+.categories-section {
+ padding: 60px 0;
+ text-align: center;
+ background: var(--light-grey);
+}
+
+.categories-section h2 {
+ margin-bottom: 30px;
+}
+
+.categories-grid {
+ display: grid;
+ /* Enforces 2 categories per row on desktop (2x2 layout) */
+ grid-template-columns: repeat(2, 1fr);
+ gap: 30px;
+}
+
+.category-card {
+ position: relative;
+ overflow: hidden;
+ border-radius: 8px;
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+ transition: 0.3s;
+ min-height: 250px;
+ /* Ensures category cards are clickable areas */
+ display: block; 
+}
+
+.category-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.category-card img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display: block;
+ transition: transform 0.5s ease;
+}
+
+.category-card:hover img {
+ transform: scale(1.05);
+}
+
+.category-info {
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ padding: 20px;
+ background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+ color: white;
+ text-align: left;
+}
+
+.category-info h3 {
+ color: white;
+ margin: 0;
+ font-size: 1.5rem;
+ text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =======================
+PRODUCT GRID (3-per-row on Desktop)
+======================= */
+.products-grid h2 {
+margin-bottom: 30px;
+}
+.products-grid .grid {
+display: grid;
+/* Enforces 3 products per row on desktop */
+grid-template-columns: repeat(3, 1fr); 
+gap: 30px;
+margin: 30px 0 60px;
+}
+
+.product-card {
+text-align: center;
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 8px;
+overflow: hidden;
+transition: 0.3s;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.product-card:hover {
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Prominent shadow on hover */
+transform: translateY(-5px);
+}
+
+.image-wrap {
+position: relative;
+overflow: hidden;
+height: 300px; /* Fixed height for image uniformity */
+}
+
+.image-wrap img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: opacity 0.4s ease;
+}
+
+.image-wrap .hover-img {
+position: absolute;
+top: 0;
+left: 0;
+opacity: 0;
+}
+
+.image-wrap:hover .hover-img {
+opacity: 1;
+}
+
+.image-wrap:hover .main-img {
+opacity: 0;
+}
+
+.product-card h3 {
+margin: 15px 0 5px;
+font-size: 1.1rem;
+font-weight: 600;
+}
+
+.product-price {
+font-size: 1.2rem;
+font-weight: 700;
+color: var(--gold); /* Gold for price */
+margin-bottom: 15px;
+}
+
+/* =======================
+BREADCRUMB
+======================= */
+.breadcrumbs {
+font-size: 14px;
+color: #777;
+margin: 30px 0 10px;
+text-align: left;
+}
+.breadcrumbs a {
+color: var(--gold);
+}
+
+/* =======================
+FOOTER (UPDATED)
+======================= */
+.site-footer {
+background: var(--dark-grey); /* Dark grey footer */
+color: #ddd;
+text-align: center;
+padding: 40px 0 20px;
+margin-top: 60px;
+}
+
+.footer-links,
+.social {
+display: flex;
+justify-content: center;
+gap: 25px;
+margin-bottom: 15px;
+}
+
+.footer-links a,
+.social a {
+color: #ddd;
+font-size: 14px;
+transition: 0.3s;
+}
+
+.footer-links a:hover,
+.social a:hover {
+color: var(--gold);
+}
+
+/* =======================
+MODAL (POPUP) STYLES (UPDATED)
+======================= */
+.modal-overlay {
+display: none;
+position: fixed;
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.7);
+align-items: center;
+justify-content: center;
+}
+
+.modal-content {
+background-color: #fefefe;
+padding: 40px; /* Increased padding */
+border-radius: 10px; /* Softer corners */
+position: relative;
+box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+animation: modalopen 0.4s;
+}
+
+/* Product Modal */
+.modal-body {
+display: flex;
+gap: 40px;
+}
+
+/* Fixed: Set image container size for desktop/base */
+.modal-image {
+  width: 100%; 
+  max-width: 350px; /* Limit image size on desktop */
+  height: 350px; /* Make it a square on desktop */
+  overflow: hidden;
+  border-radius: 8px;
+}
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.modal-details {
+padding-top: 10px;
+}
+.modal-details h2 {
+margin-bottom: 5px;
+font-size: 2rem;
+}
+.modal-details .product-price {
+font-size: 1.8rem;
+margin-bottom: 30px;
+}
+.selector-group label {
+font-weight: 700;
+color: var(--gold);
+}
+
+/* Color Swatches (UPDATED) */
+.color-swatch {
+border: 2px solid #ddd;
+padding: 6px 15px;
+}
+.color-swatch.active {
+border-color: var(--gold);
+background: var(--gold);
+}
+
+
+/* Quantity Selector */
+.quantity-selector button {
+background: #eee;
+}
+.quantity-selector button:hover {
+background: #ddd;
+}
+.quantity-selector input {
+font-weight: 600;
+}
+
+
+/* Cart Modal */
+#cart-modal .modal-content {
+max-width: 450px;
+}
+#cart-modal h2 {
+color: var(--dark-grey); 
+border-bottom: 2px solid var(--gold);
+padding-bottom: 10px;
+margin-bottom: 20px;
+}
+
+.cart-item {
+border-bottom: 1px solid #ddd;
+}
+.cart-item-details p:first-child {
+font-weight: 600;
+}
+.cart-item-details p:last-child {
+color: var(--gold);
+}
+.remove-btn:hover {
+color: #ff0000;
+}
+#cart-total {
+border-top: 2px solid var(--gold);
+padding-top: 10px;
+}
+
+/* ADDRESS FIELD STYLES (UPDATED) */
+.address-group {
+margin: 20px 0 15px;
+padding: 15px;
+border: 1px solid #ddd;
+border-radius: 6px;
+background: var(--light-grey);
+}
+.address-group label {
+display: block;
+margin-bottom: 10px;
+font-weight: 700;
+color: var(--gold);
+text-transform: uppercase;
+font-size: 0.9rem;
+}
+.address-group input,
+.address-group textarea {
+padding: 12px;
+border: 1px solid #ccc;
+border-radius: 4px;
+transition: border-color 0.3s;
+}
+.address-group input:focus,
+.address-group textarea:focus {
+border-color: var(--gold);
+outline: none;
+box-shadow: 0 0 0 2px rgba(167, 122, 63, 0.3);
+}
+
+/* Checkout Modal */
+#checkout-modal .modal-content {
+max-width: 500px;
+}
+#checkout-modal p {
+color: #555;
+}
+#checkout-modal textarea {
+border: 2px dashed var(--gold); /* Highlighted for easy copying */
+background: #fff;
+color: #333;
+}
+
+/* *** NEW STYLE 2: Aligning the button group in the checkout modal (Assumes buttons are wrapped in this class) *** */
+.checkout-action-group {
+    display: flex;
+    flex-direction: column; /* Stack vertically on mobile */
+    gap: 15px;
+    align-items: center; /* Center buttons */
+    margin-top: 25px;
+}
+/* Make buttons full width in this group on mobile */
+.checkout-action-group .btn {
+    width: 100%;
+}
+
+.whatsapp-btn {
+background-color: #25D366;
+}
+.whatsapp-btn:hover {
+background-color: #1EAE50;
+}
+
+
+/* =======================
+RESPONSIVE DESIGN
+======================= */
+@media (min-width: 500px) {
+    /* Responsive adjustment for checkout actions on desktop */
+    .checkout-action-group {
+        flex-direction: row; /* Horizontal layout on wider screens */
+        justify-content: center;
+    }
+    /* Let buttons shrink naturally on desktop in the action group */
+    .checkout-action-group .btn {
+        width: auto; 
+    }
+}
+
+@media (max-width: 768px) {
+/* GENERAL */
+.hero-banner img {
+height: 300px;
+}
+.hero-text h1 {
+font-size: 1.5rem;
+}
+.logo-text {
+font-size: 1.3rem;
+}
+.modal-body {
+flex-direction: column;
+gap: 20px;
+}
+.modal-content {
+padding: 20px;
+}
+
+ /* Fixed: Mobile image size */
+.modal-image { 
+ max-width: 250px; /* Smaller max-width for mobile */
+  height: 250px;   /* Square dimensions for mobile */
+  margin: 0 auto;  /* Center the image on mobile */
+}
+
+.image-wrap {
+height: 250px;
+}
+
+/* CATEGORIES - Stack them on mobile */
+.categories-grid {
+ grid-template-columns: 1fr; 
+}
+
+/* PRODUCTS - Change to 2 columns on mobile */
+.products-grid .grid {
+grid-template-columns: repeat(2, 1fr);
+gap: 20px;
+}
+} 

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAWOOD AB COLLECTION | Winter Collection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="main-nav container">
+      <div class="logo-container">
+        <div class="logo-circle">
+          <img src="images.jpg/ecomlogo.jpg" alt="DAWOOD AB COLLECTION Logo" />
+        </div>
+        <span class="logo-text">DAWOOD AB COLLECTION</span>
+      </div>
+
+      <div class="nav-links">
+        <button id="cart-button" class="btn" onclick="showCart()">Cart (0)</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero-banner">
+    <img src="images.jpg/banner.jpg" alt="Main Banner" />
+    <div class="hero-text">
+      <h1>Welcome to DAWOOD AB COLLECTION</h1>
+      <p>Explore Our Finest Winter Fabrics</p>
+    </div>
+  </section>
+
+  <section id="categories" class="categories-section">
+    <div class="container">
+      <h2>Our Winter Collection</h2>
+      <div class="categories-grid">
+
+        <a class="category-card" onclick="showCategory('washnwear')">
+          <img src="images.jpg/wash1h.jpg" alt="Wash n Wear" />
+          <div class="category-info">
+            <h3>Wash n Wear</h3>
+          </div>
+        </a>
+
+        <a class="category-card" onclick="showCategory('premiumwools')">
+          <img src="images.jpg/cottonh1.jpg" alt="Premium Wools" />
+          <div class="category-info">
+            <h3>Premium Wools</h3>
+          </div>
+        </a>
+
+        <a class="category-card" onclick="showCategory('boski')">
+          <img src="images.jpg/boskih1.jpg" alt="Boski" />
+          <div class="category-info">
+            <h3>Boski</h3>
+          </div>
+        </a>
+        
+        <a class="category-card" onclick="showCategory('winterskurta')">
+          <img src="images.jpg/KURTA.jpg" alt="Winters Kurta" />
+          <div class="category-info">
+            <h3>Winters Kurta</h3>
+          </div>
+        </a>
+        
+      </div>
+    </div>
+  </section>
+  <section id="products-section" class="products-grid container" style="display:none;">
+    <div class="breadcrumbs" id="breadcrumb"></div>
+    <h2 id="category-title"></h2>
+    <div class="grid" id="product-list">
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+      <button class="btn back-btn" onclick="goBack()">← Back to Categories</button>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="social">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 DAWOOD AB COLLECTION. All rights reserved.</p>
+  </footer>
+
+  <div id="product-modal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <div class="modal-body">
+        <div class="modal-image">
+          <img id="modal-product-img" src="images/products.jpg" alt="Product Image">
+        </div>
+        <div class="modal-details">
+          <h2 id="modal-product-name">Product Name</h2>
+          <p id="modal-product-price" class="product-price">Rs. 5000</p>
+          
+          <div class="selector-group">
+            <label>Color:</label>
+            <div id="modal-color-selector">
+            </div>
+          </div>
+          
+          <div class="selector-group">
+            <label>Quantity:</label>
+            <div class="quantity-selector">
+              <button onclick="changeQuantity(-1)">-</button>
+              <input id="quantity-input" type="number" value="1" min="1" readonly>
+              <button onclick="changeQuantity(1)">+</button>
+            </div>
+          </div>
+          
+          <button class="btn add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cart-modal" class="modal-overlay" onclick="closeCartModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-modal" onclick="closeCartModal()">&times;</span>
+      <h2>Your Cart</h2>
+      <div id="cart-item-list">
+        <p>Your cart is empty.</p>
+      </div>
+      <hr>
+      <h3 id="cart-total">Total: Rs. 0</h3>
+      
+      <div class="address-group">
+        <label>Your Shipping Details:</label>
+        <input type="text" id="customer-name" placeholder="Full Name" required>
+        <input type="tel" id="customer-phone" placeholder="Phone Number (e.g., 03001234567)" required>
+        <textarea id="customer-address" rows="3" placeholder="Complete Shipping Address" required></textarea>
+      </div>
+      
+      <button class="btn add-to-cart-btn" onclick="checkout()">Checkout</button>
+    </div>
+    
+  </div>
+
+  <div id="checkout-modal" class="modal-overlay" onclick="closeCheckoutModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="close-modal" onclick="closeCheckoutModal()">&times;</span>
+      <h2>Confirm Your Order</h2>
+      <p>Click "Copy Cart" and then "Send WhatsApp Message" to confirm your order.</p>
+      
+      <textarea id="cart-summary-text" rows="12" readonly></textarea>
+      
+      <button class="btn" onclick="copyCart()">Copy Cart Details</button>
+      <a id="whatsapp-link" href="#" class="btn whatsapp-btn" target="_blank">
+        Send WhatsApp Message
+      </a>
+    </div>
+  </div>
+
+
+  <script>
+    // ===================================
+    // DATA (UPDATED)
+    // ===================================
+    const categories = {
+      washnwear: {
+        title: "Wash n Wear",
+        products: [
+          { name: "Wash n Wear Classic", price: 5000, img: "images/products.jpg", hoverImg: "images/hover-products.jpg", colors: [
+            { name: "P1", img: "images/products.jpg" }, { name: "P2", img: "images/products.jpg" }, { name: "P3", img: "images/products.jpg" }, { name: "P4", img: "images/products.jpg" },
+            { name: "P5", img: "images/products.jpg" }, { name: "P6", img: "images/products.jpg" }, { name: "P7", img: "images/products.jpg" }, { name: "P8", img: "images/products.jpg" }
+          ]},
+          { name: "Wash n Wear Deluxe", price: 5000, img: "images/products.jpg", hoverImg: "images/hover-products.jpg", colors: [
+            { name: "P1", img: "images/products.jpg" }, { name: "P2", img: "images/products.jpg" }, { name: "P3", img: "images/products.jpg" }, { name: "P4", img: "images/products.jpg" },
+            { name: "P5", img: "images/products.jpg" }, { name: "P6", img: "images/products.jpg" }, { name: "P7", img: "images/products.jpg" }, { name: "P8", img: "images/products.jpg" }
+          ]},
+          { name: "Wash n Wear Signature", price: 5000, img: "images/products.jpg", hoverImg: "images/hover-products.jpg", colors: [
+            { name: "P1", img: "images/products.jpg" }, { name: "P2", img: "images/products.jpg" }, { name: "P3", img: "images/products.jpg" }, { name: "P4", img: "images/products.jpg" },
+            { name: "P5", img: "images/products.jpg" }, { name: "P6", img: "images/products.jpg" }, { name: "P7", img: "images/products.jpg" }, { name: "P8", img: "images/products.jpg" }
+          ]}
+        ]
+      },
+      premiumwools: {
+        title: "Premium Wools",
+        products: [
+          { name: "Spanish Wool", price: 5000, img: "images/products.jpg", hoverImg: "images/hover-products.jpg", colors: [
+            { name: "P1", img: "images/products.jpg" }, { name: "P2", img: "images/products.jpg" }, { name: "P3", img: "images/products.jpg" }, { name: "P4", img: "images/products.jpg" },
+            { name: "P5", img: "images/products.jpg" }, { name: "P6", img: "images/products.jpg" }, { name: "P7", img: "images/products.jpg" }, { name: "P8", img: "images/products.jpg" }
+          ]},
+          { name: "Italian Wool", price: 5000, img: "images/products.jpg", hoverImg: "images/hover-products.jpg", colors: [
+            { name: "P1", img: "images/products.jpg" }, { name: "P2", img: "images/products.jpg" }, { name: "P3", img: "images/products.jpg" }, { name: "P4", img: "images/products.jpg" },
+            { name: "P5", img: "images/products.jpg" }, { name: "P6", img: "images/products.jpg" }, { name: "P7", img: "images/products.jpg" }, { name: "P8", img: "images/products.jpg" }
+          ]},
+          { name: "White Musk Wool", price: 5000, img: "images/products.jpg", hoverImg: "images/hover-products.jpg", colors: [
+            { name: "P1", img: "images/products.jpg" }, { name: "P2", img: "images/products.jpg" }, { name: "P3", img: "images/products.jpg" }, { name: "P4", img: "images/products.jpg" },
+            { name: "P5", img: "images/products.jpg" }, { name: "P6", img: "images/products.jpg" }, { name: "P7", img: "images/products.jpg" }, { name: "P8", img: "images/products.jpg" }
+          ]}
+        ]
+      },
+      boski: {
+        title: "Boski",
+        products: [
+          { name: "Boski Premium", price: 6750, img: "images.jpg/boskih1.jpg", hoverImg: "images.jpg/boskih1.jpg", colors: [] },
+          { name: "Boski Fine", price: 3750, img: "images.jpg/boskifine.jpg", hoverImg: "images.jpg/boskifine.jpg", colors: [] },
+          { name: "Boski Exclusive", price: 8500, img: "images.jpg/boskiexe.jpg", hoverImg: "images.jpg/boskiexe.jpg", colors: [] }
+        ]
+      },
+      // NEW CATEGORY DATA
+            winterskurta: {
+              title: "Winters Kurta Unstitched",
+              products: [
+                { name: "Embroidery Kurta", price: 8500, img: "images.jpg/KURTA.jpg", hoverImg: "images.jpg/P1.jpg", colors: [
+                  { name: "P1", img: "images.jpg/P1.jpg" }, 
+                  { name: "P2", img: "images.jpg/P2.jpg" }, 
+                  { name: "P3", img: "images.jpg/P3.jpg" },
+                  { name: "P4", img: "images.jpg/P4.jpg" },
+                  { name: "P5", img: "images.jpg/P5.jpg" },
+                  { name: "P6", img: "images.jpg/P6.jpg" },
+                  { name: "P7", img: "images.jpg/P7.jpg" }
+                ]}
+              ]
+            }
+            // END NEW CATEGORY DATA
+    };
+
+    // Global variables
+    let cart = [];
+    let currentProduct = null;
+
+    // ===================================
+    // PAGE NAVIGATION
+    // ===================================
+    function showCategory(key) {
+      const cat = categories[key];
+      document.getElementById("categories").style.display = "none";
+      document.getElementById("products-section").style.display = "block";
+
+      document.getElementById("category-title").innerText = cat.title;
+      document.getElementById("breadcrumb").innerHTML = `Home › ${cat.title}`;
+
+      const productList = document.getElementById("product-list");
+      productList.innerHTML = "";
+      cat.products.forEach((p, index) => {
+        productList.innerHTML += `
+          <div class="product-card" onclick="showProductDetail('${key}', ${index})">
+            <div class="image-wrap">
+              <img src="${p.img}" alt="${p.name}" class="main-img" />
+              <img src="${p.hoverImg}" alt="${p.name} hover" class="hover-img" />
+            </div>
+            <h3>${p.name}</h3>
+            <p class="product-price">Rs. ${p.price}</p>
+          </div>`;
+      });
+    }
+
+    function goBack() {
+      document.getElementById("products-section").style.display = "none";
+      document.getElementById("categories").style.display = "block";
+    }
+
+    // ===================================
+    // PRODUCT MODAL
+    // ===================================
+    function showProductDetail(key, index) {
+      const product = categories[key].products[index];
+      currentProduct = product; 
+
+      document.getElementById("modal-product-name").innerText = product.name;
+      document.getElementById("modal-product-price").innerText = `Rs. ${product.price}`;
+      document.getElementById("quantity-input").value = 1;
+
+      const colorSelector = document.getElementById("modal-color-selector");
+      colorSelector.innerHTML = "";
+
+      if (product.colors.length > 0) {
+        product.colors.forEach((color, i) => {
+          colorSelector.innerHTML += `
+            <button class="color-swatch"
+                    data-color-name="${color.name}"
+                    onclick="selectColor(this, '${color.img}')">
+              ${color.name}
+            </button>`;
+        });
+        // Automatically select the first color
+        document.querySelector('.color-swatch').click();
+      } else {
+        colorSelector.innerHTML = "<p>Standard Color Only</p>";
+      }
+      
+      // Set initial image
+      document.getElementById("modal-product-img").src = product.colors.length > 0 ? product.colors[0].img : product.img;
+      document.getElementById("product-modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("product-modal").style.display = "none";
+      currentProduct = null;
+    }
+
+    function selectColor(element, imagePath) {
+      document.getElementById('modal-product-img').src = imagePath;
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function changeQuantity(amount) {
+      const input = document.getElementById('quantity-input');
+      let newValue = parseInt(input.value) + amount;
+      if (newValue < 1) newValue = 1;
+      input.value = newValue;
+    }
+
+    // ===================================
+    // CART LOGIC
+    // ===================================
+    function addToCart() {
+      const quantity = parseInt(document.getElementById('quantity-input').value);
+      let selectedColor = "Standard";
+      let itemImgSrc = currentProduct.img;
+
+      if (currentProduct.colors.length > 0) {
+        const activeSwatch = document.querySelector('#modal-color-selector .color-swatch.active');
+        if (!activeSwatch) {
+          alert('Please select a color.');
+          return;
+        }
+        selectedColor = activeSwatch.dataset.colorName;
+        itemImgSrc = document.getElementById('modal-product-img').src;
+      }
+
+      const cartItem = {
+        name: currentProduct.name,
+        price: currentProduct.price,
+        color: selectedColor,
+        quantity: quantity,
+        img: itemImgSrc
+      };
+      
+      const existingItem = cart.find(item => item.name === cartItem.name && item.color === cartItem.color);
+      if (existingItem) {
+        existingItem.quantity += cartItem.quantity;
+      } else {
+        cart.push(cartItem);
+      }
+      
+      updateCartDisplay();
+      closeModal();
+    }
+
+    function updateCartDisplay() {
+      const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+      document.getElementById('cart-button').innerText = `Cart (${totalQuantity})`;
+    }
+
+    function showCart() {
+      const cartList = document.getElementById('cart-item-list');
+      const cartTotalEl = document.getElementById('cart-total');
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartList.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotalEl.innerText = "Total: Rs. 0";
+      } else {
+        cartList.innerHTML = "";
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+          cartList.innerHTML += `
+            <div class="cart-item">
+              <alt="${item.name}">
+              <div class="cart-item-details">
+                <p>${item.name} (${item.color})</p>
+                <p>Qty: ${item.quantity} | Rs. ${itemTotal}</p>
+              </div>
+              <button class="remove-btn" onclick="removeFromCart(${index})">&times;</button>
+            </div>`;
+        });
+        cartTotalEl.innerText = `Total: Rs. ${total}`;
+      }
+      
+      document.getElementById('cart-modal').style.display = 'flex';
+    }
+
+    function closeCartModal() {
+      document.getElementById('cart-modal').style.display = 'none';
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartDisplay();
+      showCart(); 
+    }
+
+    // ===================================
+    // CHECKOUT LOGIC (UPDATED)
+    // ===================================
+    function checkout() {
+      // 1. Get and Validate Address Fields
+      const name = document.getElementById('customer-name').value;
+      const phone = document.getElementById('customer-phone').value;
+      const address = document.getElementById('customer-address').value;
+
+      if (!name.trim() || !phone.trim() || !address.trim()) {
+        alert('Please fill in your Full Name, Phone Number, and Address before checking out.');
+        return; // Stop the function
+      }
+      
+      // Check if cart is empty
+      if (cart.length === 0) {
+          alert('Your cart is empty.');
+          return;
+      }
+
+      // 2. Build the Summary String
+      let summary = "Hello DAWOOD AB COLLECTION,\nI would like to order:\n\n";
+      summary += "--- CUSTOMER DETAILS ---\n";
+      summary += `Name: ${name.trim()}\n`;
+      summary += `Phone: ${phone.trim()}\n`;
+      summary += `Address: ${address.trim()}\n\n`;
+      summary += "--- ORDER SUMMARY ---\n";
+
+      let total = 0;
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        summary += `${item.name} (${item.color}) - Qty: ${item.quantity} - Rs. ${itemTotal}\n`;
+      });
+      
+      summary += `\nTOTAL: Rs. ${total}\n\nThank you!`;
+      
+      // 3. Populate Checkout Modal
+      document.getElementById('cart-summary-text').value = summary;
+
+      // 4. Format for WhatsApp URL
+      // Note: Make sure the phone number below is the correct WhatsApp number for orders.
+      const whatsappMessage = encodeURIComponent(summary);
+      const whatsappURL = `https://wa.me/923085231023?text=${whatsappMessage}`;
+      document.getElementById('whatsapp-link').href = whatsappURL;
+
+      // 5. Show/Hide Modals
+      closeCartModal();
+      document.getElementById('checkout-modal').style.display = 'flex';
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').style.display = 'none';
+    }
+
+    function copyCart() {
+      const textArea = document.getElementById('cart-summary-text');
+      textArea.select();
+      textArea.setSelectionRange(0, 99999); 
+      
+      try {
+        document.execCommand('copy');
+        alert('Cart details copied to clipboard!');
+      } catch (err) {
+        alert('Failed to copy. Please copy manually.');
+      }
+    }
+    
+    // Initialize cart count on page load
+    updateCartDisplay();
+    
+  </script>
+</body>
+</html>
+
