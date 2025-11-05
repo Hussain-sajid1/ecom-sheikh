@@ -12,7 +12,7 @@
     <nav class="main-nav container">
       <div class="logo-container">
         <div class="logo-circle">
-          <img src="images.jpg/ecomlogo.jpg" alt="DAWOOD AB COLLECTION Logo" />
+          <img src="images.jpg/ecomlogo.jpg" alt="DAWOOD AB COLLECTION Logo" decoding="async" />
         </div>
         <span class="logo-text">DAWOOD AB COLLECTION</span>
       </div>
@@ -24,7 +24,7 @@
   </header>
 
   <section class="hero-banner">
-    <img src="images.jpg/banner.jpg" alt="Main Banner" />
+    <img src="images.jpg/banner.jpg" alt="Main Banner" decoding="async" />
     <div class="hero-text">
       <h1>Welcome to DAWOOD AB COLLECTION</h1>
       <p>Explore Our Finest Winter Fabrics</p>
@@ -37,28 +37,28 @@
       <div class="categories-grid">
 
         <a class="category-card" onclick="showCategory('washnwear')">
-          <img src="images.jpg/wash1h.jpg" alt="Wash n Wear" />
+          <img src="images.jpg/wash1h.jpg" alt="Wash n Wear" loading="lazy" />
           <div class="category-info">
             <h3>Wash n Wear</h3>
           </div>
         </a>
 
         <a class="category-card" onclick="showCategory('premiumwools')">
-          <img src="images.jpg/cottonh1.jpg" alt="Premium Wools" />
+          <img src="images.jpg/cottonh1.jpg" alt="Premium Wools" loading="lazy" />
           <div class="category-info">
             <h3>Premium Wools</h3>
           </div>
         </a>
 
         <a class="category-card" onclick="showCategory('boski')">
-          <img src="images.jpg/boskih1.jpg" alt="Boski" />
+          <img src="images.jpg/boskih1.jpg" alt="Boski" loading="lazy" />
           <div class="category-info">
             <h3>Boski</h3>
           </div>
         </a>
         
         <a class="category-card" onclick="showCategory('winterskurta')">
-          <img src="images.jpg/KURTA.jpg" alt="Winters Kurta" />
+          <img src="images.jpg/KURTA.jpg" alt="Winters Kurta" loading="lazy" />
           <div class="category-info">
             <h3>Winters Kurta</h3>
           </div>
@@ -207,21 +207,21 @@
         ]
       },
       // NEW CATEGORY DATA
-            winterskurta: {
-              title: "Winters Kurta Unstitched",
-              products: [
-                { name: "Embroidery Kurta", price: 8500, img: "images.jpg/KURTA.jpg", hoverImg: "images.jpg/P1.jpg", colors: [
-                  { name: "P1", img: "images.jpg/P1.jpg" }, 
-                  { name: "P2", img: "images.jpg/P2.jpg" }, 
-                  { name: "P3", img: "images.jpg/P3.jpg" },
-                  { name: "P4", img: "images.jpg/P4.jpg" },
-                  { name: "P5", img: "images.jpg/P5.jpg" },
-                  { name: "P6", img: "images.jpg/P6.jpg" },
-                  { name: "P7", img: "images.jpg/P7.jpg" }
-                ]}
-              ]
-            }
-            // END NEW CATEGORY DATA
+      			winterskurta: {
+        			title: "Winters Kurta Unstitched",
+        			products: [
+        			  { name: "Embroidery Kurta", price: 8500, img: "images.jpg/KURTA.jpg", hoverImg: "images.jpg/P1.jpg", colors: [
+        			    { name: "P1", img: "images.jpg/P1.jpg" }, 
+        			    { name: "P2", img: "images.jpg/P2.jpg" }, 
+        			    { name: "P3", img: "images.jpg/P3.jpg" },
+        			    { name: "P4", img: "images.jpg/P4.jpg" },
+        			    { name: "P5", img: "images.jpg/P5.jpg" },
+        			    { name: "P6", img: "images.jpg/P6.jpg" },
+        			    { name: "P7", img: "images.jpg/P7.jpg" }
+        			  ]}
+        			]
+        		}
+      		// END NEW CATEGORY DATA
     };
 
     // Global variables
@@ -242,11 +242,12 @@
       const productList = document.getElementById("product-list");
       productList.innerHTML = "";
       cat.products.forEach((p, index) => {
+        // PERFORMANCE: Added loading="lazy" and decoding="async" to product images added by JS
         productList.innerHTML += `
           <div class="product-card" onclick="showProductDetail('${key}', ${index})">
             <div class="image-wrap">
-              <img src="${p.img}" alt="${p.name}" class="main-img" />
-              <img src="${p.hoverImg}" alt="${p.name} hover" class="hover-img" />
+              <img src="${p.img}" alt="${p.name}" class="main-img" loading="lazy" decoding="async" />
+              <img src="${p.hoverImg}" alt="${p.name} hover" class="hover-img" loading="lazy" decoding="async" />
             </div>
             <h3>${p.name}</h3>
             <p class="product-price">Rs. ${p.price}</p>
@@ -368,7 +369,7 @@
           total += itemTotal;
           cartList.innerHTML += `
             <div class="cart-item">
-              <alt="${item.name}">
+              <img src="${item.img}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 15px; border-radius: 4px;">
               <div class="cart-item-details">
                 <p>${item.name} (${item.color})</p>
                 <p>Qty: ${item.quantity} | Rs. ${itemTotal}</p>
@@ -466,4 +467,3 @@
   </script>
 </body>
 </html>
-
